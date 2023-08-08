@@ -1,118 +1,171 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import Image from "next/image";
+import { Inter } from "next/font/google";
+import Navbar from "@/components/Navbar";
+import { useIsIntersecting } from "@/lib/hooks";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useRef } from "react";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const isVisible = useRef(null);
+  const isCardVisible = useIsIntersecting(isVisible);
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+      className={`flex dark:bg-white dark:text-black  flex-col items-center ${inter.className}`}
     >
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
+      <Navbar />
+      <div className=" font-semibold flex">
         <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
+          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] mx-4 "
+          src="/note.png"
           alt="Next.js Logo"
-          width={180}
-          height={37}
+          width={30}
+          height={14}
           priority
         />
+        Try OpheliaAI for 14 days for free
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className="font-bold text-6xl p-8 my-5 animate-fade-in-up">
+        Recruitment on AutoPilot with OpheliaAI
+      </div>
+      <span className=" text-lg animate-fade-in-up">
+        Ophelia is one of the leading recruitment platforms out there
+      </span>
+      <div className="my-5 animate-fade-in-up font-semibold">
+        <span className="dark:bg-black cursor-pointer  p-3 dark:text-white rounded-md mx-3  ">
+          Get Started
+        </span>
+        <span className="dark:bg-slate-300 cursor-pointer  p-3 dark:text-black rounded-md mx-3  ">
+          Try Live Demo
+        </span>
+      </div>
+      <div>Culture fit is our topmost priority</div>
+      <video
+        class="elementor-video animate-fade-in-up"
+        src="./ophelia_landing_fix.mp4"
+        autoplay=""
+        loop
+        controls=""
+        muted="muted"
+        playsinline=""
+        controlslist="nodownload"
+        height={600}
+        width={900}
+        style={{
+          borderRadius: "10px",
+          margin: "10px",
+        }}
+      ></video>
+      <div>
+        <h1 className="text-6xl text-slate-400 animate-fade-in-up font-semibold a p-3">
+          We are partnered with some amazing clients
+        </h1>
+        <div className="flex justify-between p-5">
+          <img src="./google_svg.svg" className="w-16" />
+          <img src="./microsoft_svg.svg" className="w-16" />
+          <img src="./mcdonald_svg.svg" className="w-16" />
+        </div>
+      </div>
+      <div className="flex flex-col items-center my-5">
+        <span className="font-semibold text-xl">For Recruiters</span>
+        <span className="font-bold text-6xl p-3 my-2 animate-fade-in-up">
+          Scale your Team Blazingly Fast
+        </span>
+        <span className="font-semibold text-xl">
+          Shortlist candindates within minutes and culture-fit check with 3
+          clicks
+        </span>
+        <div className="grid grid-cols-2 gap-5 w-2/3 p-5">
+          <Card
+            className={`hover:-translate-y-3  ${
+              isCardVisible ? "animate-fade-in-up-slow" : ""
+            } `}
+            ref={isVisible}
+          >
+            <CardHeader>
+              <CardTitle className="font-bold text-2xl">
+                Candidate analyser
+              </CardTitle>
+              <CardDescription className="dark:text-slate-500 text-xs">
+                Analyse your candidates yourself with their introduction videos
+                and make sure theres a cultural fit{" "}
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-xl">
+              <p>
+                Analyse your candidates yourself with their introduction videos
+                and make sure there's a cultural fit" means that you should
+                evaluate potential candidates for a job position by watching
+                their introduction videos. This approach allows you to directly
+                assess their communication skills, personality, and demeanor.
+              </p>
+            </CardContent>
+          </Card>
+          <Card
+            className={`hover:-translate-y-3  ${
+              isCardVisible ? "animate-fade-in-up-slow" : ""
+            } `}
+          >
+            <CardHeader>
+              <CardTitle className="font-bold text-2xl">
+                Tune your Shortlist
+              </CardTitle>
+              <CardDescription className="dark:text-slate-500 text-xs">
+                Make specfic selections of candidates based on your thinking
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-xl">
+              <p>
+                Analyse your candidates yourself with their introduction videos
+                and make sure there's a cultural fit" means that you should
+                evaluate potential candidates for a job position by watching
+                their introduction videos. This approach allows you to directly
+                assess their communication skills, personality, and demeanor.
+              </p>
+            </CardContent>
+          </Card>
+          <Card
+            className={`hover:-translate-y-3 ${
+              isCardVisible ? "animate-fade-in-up-slow" : ""
+            } `}
+          >
+            <CardHeader>
+              <CardTitle className="font-bold text-2xl">
+                Remote Talent
+              </CardTitle>
+              <CardDescription className="dark:text-slate-500 text-xs">
+                Get your job on the global radar and find talent that fits your
+                team and budget
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-xl">
+              <p>
+                Get your job on the global radar and find talent that fits your
+                team and budget" means promoting and publicizing your job
+                opening to attract potential candidates from all around the
+                world. This approach leverages the power of the internet and
+                various online platforms to reach a broader audience of
+                qualified individuals.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+      <div className="flex flex-col items-center p-3">
+        <span className="font-bold text-lg">Step by step guide</span>
+        <span className="font-bold text-3xl m-3">How does it work?</span>
+        <span className="font-normal text-3xl">
+          Find a candidate succesfully in 2 minutes, Hassell Free.
+        </span>
       </div>
     </main>
-  )
+  );
 }
