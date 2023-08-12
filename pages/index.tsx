@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import { useIsIntersecting } from "@/lib/hooks";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -10,13 +12,43 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const isVisible = useRef(null);
   const isCardVisible = useIsIntersecting(isVisible);
+  const step1Ref = useRef(null);
+  const step2Ref = useRef(null);
+  const step3Ref = useRef(null);
+  const step4Ref = useRef(null);
+  const newsLetterRef = useRef(null);
+  const isStep1Visible = useIsIntersecting(step1Ref);
+  const isStep2Visible = useIsIntersecting(step2Ref);
+  const isStep3Visible = useIsIntersecting(step3Ref);
+  const isStep4Visible = useIsIntersecting(step4Ref);
+  const isNewsLetterVisible = useIsIntersecting(newsLetterRef);
+
+  const [move, setMove] = useState<string>("left");
+  const [secondStepMove, setSecondStepMove] = useState<string>("right");
+  const [thirdStepMove, setThirdStepMove] = useState<string>("left");
+  const [fourthStepMove, setFourthStepMove] = useState<string>("right");
+
+  useEffect(() => {
+    if (isStep2Visible) {
+      setMove("right");
+    }
+    if (isStep3Visible) {
+      setSecondStepMove("left");
+    }
+    if (isStep4Visible) {
+      setThirdStepMove("right");
+    }
+    if (isNewsLetterVisible) {
+      setFourthStepMove("left");
+    }
+  }, [isStep2Visible, isStep3Visible, isStep4Visible, isNewsLetterVisible]);
   return (
     <main
       className={`flex dark:bg-white dark:text-black  flex-col items-center ${inter.className}`}
@@ -83,12 +115,9 @@ export default function Home() {
           Shortlist candindates within minutes and culture-fit check with 3
           clicks
         </span>
-        <div className="grid grid-cols-2 gap-5 w-2/3 p-5">
+        <div className="grid grid-cols-2 gap-5 w-2/3 p-5" ref={isVisible}>
           <Card
-            className={`hover:-translate-y-3  ${
-              isCardVisible ? "animate-fade-in-up-slow" : ""
-            } `}
-            ref={isVisible}
+            className={` ${isCardVisible ? "animate-fade-in-up-slow" : ""} `}
           >
             <CardHeader>
               <CardTitle className="font-bold text-2xl">
@@ -110,9 +139,7 @@ export default function Home() {
             </CardContent>
           </Card>
           <Card
-            className={`hover:-translate-y-3  ${
-              isCardVisible ? "animate-fade-in-up-slow" : ""
-            } `}
+            className={` ${isCardVisible ? "animate-fade-in-up-slow" : ""} `}
           >
             <CardHeader>
               <CardTitle className="font-bold text-2xl">
@@ -133,9 +160,7 @@ export default function Home() {
             </CardContent>
           </Card>
           <Card
-            className={`hover:-translate-y-3 ${
-              isCardVisible ? "animate-fade-in-up-slow" : ""
-            } `}
+            className={` ${isCardVisible ? "animate-fade-in-up-slow" : ""} `}
           >
             <CardHeader>
               <CardTitle className="font-bold text-2xl">
@@ -165,6 +190,122 @@ export default function Home() {
         <span className="font-normal text-3xl">
           Find a candidate succesfully in 2 minutes, Hassell Free.
         </span>
+        <div className="flex flex-col w-full">
+          <div
+            className="flex justify-between items-center my-16"
+            ref={step1Ref}
+          >
+            <div
+              className={`w-1/2  duration-1000 ${
+                isStep2Visible
+                  ? move === "right"
+                    ? "translate-x-full"
+                    : "fixed"
+                  : ""
+              }`}
+            >
+              <img src="./step.svg" />
+            </div>
+
+            <div className=" flex flex-col p-2 ">
+              <span className=" font-bold text-sm text-yellow-300">Step 1</span>
+              <div className="font-normal text-xl">
+                Effortlessly create a job post.
+              </div>
+              <span className="text-xs m-1 ">
+                The job must compusorily have required experience, job location
+                preferences, etc
+              </span>
+            </div>
+          </div>
+          <div
+            className="flex justify-between items-center my-2"
+            ref={step2Ref}
+          >
+            <div className=" flex flex-col p-2 mx-10">
+              <span className=" font-bold text-sm text-yellow-300">Step 1</span>
+              <div className="font-normal text-lg">
+                Effortlessly create a job post.
+              </div>
+              <span className="text-xs m-1 ">
+                The job must compusorily have required experience, job location
+                preferences, etc
+              </span>
+            </div>
+            <img
+              src="./step.svg"
+              className={`w-1/2  duration-1000 ${
+                isStep3Visible
+                  ? secondStepMove === "left"
+                    ? "-translate-x-full"
+                    : "fixed"
+                  : ""
+              }  `}
+            />
+          </div>
+          <div
+            className="flex justify-between items-center my-2"
+            ref={step3Ref}
+          >
+            <img
+              src="./step.svg"
+              className={`w-1/2  duration-1000 ${
+                isStep4Visible
+                  ? thirdStepMove === "right"
+                    ? "translate-x-full"
+                    : "fixed"
+                  : ""
+              }`}
+            />
+            <div className=" flex flex-col p-2 mx-10">
+              <span className=" font-bold text-sm text-yellow-300">Step 1</span>
+              <div className="font-normal text-lg">
+                Effortlessly create a job post.
+              </div>
+              <span className="text-xs m-1 ">
+                The job must compusorily have required experience, job location
+                preferences, etc
+              </span>
+            </div>
+          </div>
+          <div
+            className="flex justify-between items-center my-2"
+            ref={step4Ref}
+          >
+            <div className=" flex flex-col p-2 mx-10">
+              <span className=" font-bold text-sm text-yellow-300">Step 1</span>
+              <div className="font-normal text-lg">
+                Effortlessly create a job post.
+              </div>
+              <span className="text-xs m-1 ">
+                The job must compusorily have required experience, job location
+                preferences, etc
+              </span>
+            </div>
+            <img
+              src="./step.svg"
+              className={`w-1/2  duration-1000  ${
+                isNewsLetterVisible
+                  ? fourthStepMove === "left"
+                    ? "-translate-x-full"
+                    : "fixed"
+                  : ""
+              }`}
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="dark:bg-black dark:text-white w-1/2 flex flex-col items-center  m-5 p-8 rounded-xl"
+        ref={newsLetterRef}
+      >
+        <span className="font-bold text-2xl m-4">Join our Newsletter</span>
+        <div className="flex w-full max-w-sm items-center space-x-2">
+          <Input type="email" placeholder="Email" />
+          <Button type="submit" className="dark:bg-white dark:text-black">
+            Subscribe
+          </Button>
+        </div>
       </div>
     </main>
   );

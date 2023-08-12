@@ -1,14 +1,16 @@
 import React from "react";
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
+import { useRouter } from "next/router";
 type Props = {};
 
 const Navbar = (props: Props) => {
   const { systemTheme, theme, setTheme } = useTheme();
+  const route = useRouter();
   return (
     <div className=" w-full p-4 dark:text-black">
       <div className="flex justify-between text-center items-center">
-        <div className="w-1/4 flex justify-between text-center items-center">
+        <div className="w-1/3 flex justify-between text-center items-center">
           <span className="font-bold  text-3xl animate-fade-in-up ">
             Ophelia
           </span>
@@ -18,7 +20,13 @@ const Navbar = (props: Props) => {
           <Button variant={"ghost"}>For Employer</Button>
         </div>
         <div className="flex justify-between w-1/5">
-          <Button variant={"ghost"} color="primary">
+          <Button
+            variant={"ghost"}
+            color="primary"
+            onClick={() => {
+              route.push("/login");
+            }}
+          >
             Login
           </Button>
           <Button variant={"ghost"}>Sign up</Button>

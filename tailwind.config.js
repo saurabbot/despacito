@@ -81,7 +81,7 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in-up": "fade-in-up 1s var(--animation-delay, 0ms) cubic-bezier(.21,1.02,.73,1) forwards",
-        "fade-in-up-slow": "fade-in-up-slow 2s var(--animation-delay, 50ms) cubic-bezier(.21,1.02,.73,1) forwards",
+        "fade-in-up-slow": "fade-in-up-slow 2s var(--animation-delay, 0ms) cubic-bezier(.21,1.02,.73,1) forwards",
 
         spinning: "spinning 0.75s linear infinite",
       },
