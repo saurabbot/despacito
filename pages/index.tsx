@@ -13,10 +13,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useEffect, useRef, useState } from "react";
+import { trpc } from "@/utils/trpc";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { data, error, isLoading, mutate, ...otherMutationProps } =
+    trpc.viewer.leads.addNewsLetterSubscriber.useMutation();
+
+  const addNewLead = async () => {
+    try {
+      const result = await mutate({ email: "numbchad@gmail.com" });
+    } catch (error) {}
+  };
   const isVisible = useRef(null);
   const isCardVisible = useIsIntersecting(isVisible);
   const step1Ref = useRef(null);
@@ -49,6 +58,7 @@ export default function Home() {
       setFourthStepMove("left");
     }
   }, [isStep2Visible, isStep3Visible, isStep4Visible, isNewsLetterVisible]);
+
   return (
     <main
       className={`flex dark:bg-white dark:text-black  flex-col items-center ${inter.className}`}
@@ -72,10 +82,10 @@ export default function Home() {
         Ophelia is one of the leading recruitment platforms out there
       </span>
       <div className="my-5 animate-fade-in-up font-semibold">
-        <span className="dark:bg-black cursor-pointer  p-3 dark:text-white rounded-md mx-3  ">
+        <span className="dark:bg-black bg-white text-black cursor-pointer  p-3 dark:text-white rounded-md mx-3  ">
           Get Started
         </span>
-        <span className="dark:bg-slate-300 cursor-pointer  p-3 dark:text-black rounded-md mx-3  ">
+        <span className="dark:bg-blue-300 bg-blue-400 cursor-pointer  p-3 dark:text-black text-black rounded-md mx-3  ">
           Try Live Demo
         </span>
       </div>
@@ -296,15 +306,31 @@ export default function Home() {
         </div>
       </div>
       <div
-        className="dark:bg-black dark:text-white w-1/2 flex flex-col items-center  m-5 p-8 rounded-xl"
+        className="dark:bg-black bg-white text-black dark:text-white w-1/2 flex flex-col items-center  m-5 p-8 rounded-xl"
         ref={newsLetterRef}
       >
         <span className="font-bold text-2xl m-4">Join our Newsletter</span>
         <div className="flex w-full max-w-sm items-center space-x-2">
           <Input type="email" placeholder="Email" />
-          <Button type="submit" className="dark:bg-white dark:text-black">
+          <Button
+            type="submit"
+            onClick={addNewLead}
+            variant={"outline"}
+            className="dark:bg-white bg-black  dark:text-black text-white  "
+          >
             Subscribe
           </Button>
+        </div>
+      </div>
+      <div className=" flex w-full border border-sky-100 p-3 items-center shadow-md m-1 rounded-md">
+        <div className="w-1/4">
+          <span className="font-bold  text-3xl animate-fade-in-up ">
+            Ophelia
+          </span>
+          <p className=" font-medium text-sm">
+            Ophelia is a leading recruitment platform which helps recruiters
+            reduce their efforts of finding the right candidates by a long way.
+          </p>
         </div>
       </div>
     </main>

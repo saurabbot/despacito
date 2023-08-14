@@ -14,7 +14,11 @@ const Navbar = (props: Props) => {
           <span className="font-bold  text-3xl animate-fade-in-up ">
             Ophelia
           </span>
-          <Button variant={"ghost"} color="primary">
+          <Button
+            variant={"ghost"}
+            color="primary"
+            onClick={() => route.push("/candidates")}
+          >
             For Candidates
           </Button>
           <Button variant={"ghost"}>For Employer</Button>
