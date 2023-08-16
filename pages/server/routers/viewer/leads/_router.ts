@@ -1,7 +1,6 @@
 import { z } from "zod";
-import { db } from "@/drizzle/db";
+import prisma from "@/prisma/prisma";
 import { procedure, router } from "@/pages/server/trpc";
-import { leads } from "@/drizzle/db/schema";
 import { mailOptions, transporter } from "@/nodemailer";
 
 // Define the leadsRouter using trpc router and procedures
@@ -13,19 +12,31 @@ export const leadsRouter = router({
       })
     )
     .mutation(async (opts) => {
-      const newLead = await db.insert(leads).values({
-        email: opts.input.email,
-      });
       try {
+        const existingLead = await prisma.lead.findFirst({
+          where: {
+            email: opts.input.email,
+          },
+        });
+        if (existingLead) {
+          throw new Error("Lead already exists");
+        }
+        const newLead = await prisma.lead.create({
+          data: {
+            email: opts.input.email,
+          },
+        });
         await transporter.sendMail({
           ...mailOptions,
           to: opts.input.email,
           text: "This is a test mail",
           subject: "Thankyou for subscribing to our newsletter",
         });
-      } catch (err) {}
-
-      return "success";
+        return newLead;
+      } catch (err) {
+        console.error("Error while adding newsletter subscriber:");
+        throw new Error("Failed to add newsletter subscriber");
+      }
     }),
 });
 export type AppRouter = typeof leadsRouter;

@@ -2,6 +2,14 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import { useRouter } from "next/router";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 type Props = {};
 
 const index = (props: Props) => {
@@ -30,6 +38,62 @@ const index = (props: Props) => {
         <span className=" text-slate-500 font-semibold">
           We will find you good job but first you need to
         </span>
+        <div className=" grid grid-cols-3 gap-3 p-3">
+          <Card>
+            <CardHeader>
+              <CardTitle className="font-bold text-2xl">
+                Fill the job form
+              </CardTitle>
+              <CardDescription className="dark:text-slate-500 text-xs">
+                Take approximately not more than 5 minutes by easily filling up
+                the job form and put yourself on the global market
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-xl">
+              <p>
+                The form details will be completly private and will be shared
+                only with companies interested in your profile. We do not sell
+                any of your data
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="font-bold text-2xl">
+                Fill the job form
+              </CardTitle>
+              <CardDescription className="dark:text-slate-500 text-xs">
+                Take approximately not more than 5 minutes by easily filling up
+                the job form and put yourself on the global market
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-xl">
+              <p>
+                The form details will be completly private and will be shared
+                only with companies interested in your profile. We do not sell
+                any of your data
+              </p>
+            </CardContent>
+          </Card>{" "}
+          <Card>
+            <CardHeader>
+              <CardTitle className="font-bold text-2xl">
+                Fill the job form
+              </CardTitle>
+              <CardDescription className="dark:text-slate-500 text-xs">
+                Take approximately not more than 5 minutes by easily filling up
+                the job form and put yourself on the global market
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-xl">
+              <p>
+                The form details will be completly private and will be shared
+                only with companies interested in your profile. We do not sell
+                any of your data
+              </p>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </main>
   );

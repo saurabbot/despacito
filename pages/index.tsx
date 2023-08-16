@@ -18,12 +18,12 @@ import { trpc } from "@/utils/trpc";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const { data, error, isLoading, mutate, ...otherMutationProps } =
+  const { isSuccess, data, error, isLoading, mutate, ...otherMutationProps } =
     trpc.viewer.leads.addNewsLetterSubscriber.useMutation();
 
   const addNewLead = async () => {
     try {
-      const result = await mutate({ email: "numbchad@gmail.com" });
+      const result = await mutate({ email: newsletterEmail });
     } catch (error) {}
   };
   const isVisible = useRef(null);
@@ -43,6 +43,7 @@ export default function Home() {
   const [secondStepMove, setSecondStepMove] = useState<string>("right");
   const [thirdStepMove, setThirdStepMove] = useState<string>("left");
   const [fourthStepMove, setFourthStepMove] = useState<string>("right");
+  const [newsletterEmail, setNewsLetterEmail] = useState<string>("");
 
   useEffect(() => {
     if (isStep2Visible) {
@@ -309,28 +310,45 @@ export default function Home() {
         className="dark:bg-black bg-white text-black dark:text-white w-1/2 flex flex-col items-center  m-5 p-8 rounded-xl"
         ref={newsLetterRef}
       >
-        <span className="font-bold text-2xl m-4">Join our Newsletter</span>
-        <div className="flex w-full max-w-sm items-center space-x-2">
-          <Input type="email" placeholder="Email" />
-          <Button
-            type="submit"
-            onClick={addNewLead}
-            variant={"outline"}
-            className="dark:bg-white bg-black  dark:text-black text-white  "
-          >
-            Subscribe
-          </Button>
-        </div>
+        {!isSuccess ? (
+          <>
+            <span className="font-bold text-2xl m-4">Join our Newsletter</span>
+            <div className="flex w-full max-w-sm items-center space-x-2">
+              <Input
+                type="email"
+                placeholder="Email"
+                onChange={(e) => {
+                  setNewsLetterEmail(e.target.value);
+                }}
+              />
+              <Button
+                type="submit"
+                onClick={addNewLead}
+                loading={isLoading}
+                variant={"outline"}
+                className="dark:bg-white bg-black  dark:text-black text-white  "
+              >
+                Subscribe
+              </Button>
+            </div>
+          </>
+        ) : (
+          <span className="font-bold text-2xl m-4">Thanks for subscribing</span>
+        )}
       </div>
-      <div className=" flex w-full border border-sky-100 p-3 items-center shadow-md m-1 rounded-md">
-        <div className="w-1/4">
+      <div className=" flex justify-between w-full border border-sky-100 p-3 items-center shadow-md m-1 rounded-md">
+        <div className="w-1/4 flex flex-col">
           <span className="font-bold  text-3xl animate-fade-in-up ">
             Ophelia
           </span>
+          <span className="font-bold text-sm">business@ophelia.app</span>
           <p className=" font-medium text-sm">
             Ophelia is a leading recruitment platform which helps recruiters
             reduce their efforts of finding the right candidates by a long way.
           </p>
+        </div>
+        <div className="flex font-bold text-gray-400 flex-col items-end">
+          @2023 Ophelia LLC Wilson Garden, Bangalore
         </div>
       </div>
     </main>

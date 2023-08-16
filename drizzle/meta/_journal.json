@@ -15,6 +15,20 @@
       "when": 1691875681127,
       "tag": "0001_fluffy_skin",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1692024566254,
+      "tag": "0002_unusual_union_jack",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1692043695162,
+      "tag": "0003_ordinary_black_queen",
+      "breakpoints": true
     }
   ]
 }

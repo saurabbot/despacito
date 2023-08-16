@@ -6,5 +6,5 @@ const client = new Client({
   connectionString: process.env.DATABASE_URL,
 });
 
- client.connect();
-export const db = drizzle(client, { logger: true });
+client.connect();
+export const db = drizzle(client);
