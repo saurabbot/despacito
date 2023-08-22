@@ -44,7 +44,6 @@ const signup = (props: Props) => {
   const { isSuccess, data, error, isLoading, mutate } =
     trpc.viewer.auth.signUpUser.useMutation();
   const signUp: SubmitHandler<FormValues> = async (data) => {
-    console.log(data, "h");
     try {
       await mutate({
         username: data.username,

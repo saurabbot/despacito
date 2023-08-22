@@ -56,7 +56,7 @@ const buttonVariants = cva(
   }
 );
 type ButtonBaseProps = {
-  loading: boolean;
+  loading?: boolean;
 };
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,

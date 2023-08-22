@@ -1,33 +1,49 @@
 import prisma from "@/prisma/prisma";
 import type { NextApiRequest, NextApiResponse } from "next";
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const { token } = req.query;
+
   if (typeof token !== "string") {
     return res.status(400).json({ error: "Invalid token" });
   }
-  const legitUser = await prisma.user.findFirst({
+
+  const isTokenAuthentic = await prisma.verificationToken.findFirst({
     where: {
-      verification_token: token,
+      token: token,
     },
   });
-  if (!legitUser) {
-    return res.status(401).json({
+  if (!isTokenAuthentic) {
+    return res.status(404).json({
       success: false,
-      message: "Unathorized user",
+      message: "Invalid token",
     });
   }
+
+  const tokenIsValid =
+    !!isTokenAuthentic && isTokenAuthentic.expires > new Date();
+
+  if (!tokenIsValid) {
+    return res.status(404).json({
+      success: false,
+      message: "Token has expired",
+    });
+  }
+
   await prisma.user.update({
     where: {
-      verification_token: token,
+      id: isTokenAuthentic?.identifier,
     },
     data: {
-      is_emailVerified: true,
+      emailVerified: new Date(),
     },
   });
-  res
-    .status(200)
-    .json({ success: true, message: "Your Email is succefully verified" });
+
+  return res.status(200).json({
+    success: true,
+    message: "Your Email is successfully verified",
+  });
 }

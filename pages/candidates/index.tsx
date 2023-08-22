@@ -94,6 +94,10 @@ const index = (props: Props) => {
             </CardContent>
           </Card>
         </div>
+        <div className="flex justify-between">
+          <span>We make sure you find the right job based on your skills</span>
+          <div>Famous colleges dont work here</div>
+        </div>
       </div>
     </main>
   );

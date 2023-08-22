@@ -1,22 +1,57 @@
+"use client";
 /* eslint-disable react-hooks/rules-of-hooks */
 import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { z } from "zod";
+import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn, signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 type Props = {};
-
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+});
+type loginValues = z.infer<typeof loginSchema>;
 const login = (props: Props) => {
+  const { data: session } = useSession();
+  useEffect(() => {
+    if (session?.user.id) {
+      router.push("/");
+    }
+  }, [session]);
+  const router = useRouter();
   const [dimension, setDimension] = useState("down");
+  const methods = useForm<loginValues>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+  const { register, handleSubmit, watch } = methods;
   useEffect(() => {
     const interval = setInterval(() => {
       setDimension((prevDimension) =>
         prevDimension === "down" ? "up" : "down"
       );
     }, 5000);
-
     return () => {
       clearInterval(interval);
     };
   }, []);
+  const handleLogin: SubmitHandler<loginValues> = async (data) => {
+    try {
+      const res = await signIn("credentials", {
+        callbackUrl: "/login",
+        email: data.email,
+        password: data.password,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <main className="flex dark:bg-white dark:text-black">
       <div
@@ -61,29 +96,49 @@ const login = (props: Props) => {
           s
         </div>
       </div>
-      <div className="w-1/2 flex items-center justify-center bg-white">
+      <div className="w-1/2 flex items-center justify-center ">
         <div className="flex flex-col w-1/2 items-center  rounded-md p-3 ">
           <span className="font-bold  m-2 text-5xl animate-fade-in-up ">
             Ophelia
           </span>
           <span className="font-bold">Welcome Back!</span>
+          <span
+            onClick={() => {
+              signOut();
+            }}
+          >
+            logout
+          </span>
           <div className="w-full flex flex-col items-end m-3">
-            <Input placeholder="Enter Email" name="email" className="animate-fade-in-up" />
-            <span className=" font-normal text-sm m-1 ">Reset Password</span>
-            <Input
-              placeholder="Enter Password"
-              className="animate-fade-in-up"
-              type="password"
-            />
-            <Button
-              className="dark:bg-black  animate-fade-in-up  bg-white text-black w-full dark:text-white my-2"
-              variant={"outline"}
-            >
-              Submit
-            </Button>
-            <span className=" font-normal text-sm">
-              Dont have an account?<Button variant={"link"}>Signup</Button>
-            </span>
+            <FormProvider {...methods}>
+              <form className="w-full" onSubmit={handleSubmit(handleLogin)}>
+                <Input
+                  placeholder="Enter Email"
+                  {...register("email")}
+                  name="email"
+                  className="animate-fade-in-up"
+                />
+                <span className=" font-normal text-sm m-1 ">
+                  Reset Password
+                </span>
+                <Input
+                  {...register("password")}
+                  placeholder="Enter Password"
+                  className="animate-fade-in-up"
+                  type="password"
+                />
+                <Button
+                  className="dark:bg-black  animate-fade-in-up  bg-white text-black w-full dark:text-white my-2"
+                  variant={"outline"}
+                  type="submit"
+                >
+                  Login
+                </Button>
+                <span className=" font-normal text-sm">
+                  Dont have an account?<Button variant={"link"}>Signup</Button>
+                </span>
+              </form>
+            </FormProvider>
           </div>
         </div>
       </div>

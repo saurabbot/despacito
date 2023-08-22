@@ -2,10 +2,13 @@ import React from "react";
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
 import { useRouter } from "next/router";
+import { signOut, useSession } from "next-auth/react";
+
 type Props = {};
 
 const Navbar = (props: Props) => {
   const { systemTheme, theme, setTheme } = useTheme();
+  const { data: session } = useSession();
   const route = useRouter();
   return (
     <div className=" w-full p-4 dark:text-black">
@@ -33,7 +36,24 @@ const Navbar = (props: Props) => {
           >
             Login
           </Button>
-          <Button variant={"ghost"}>Sign up</Button>
+          <Button
+            variant={"ghost"}
+            onClick={() => {
+              route.push("/signup");
+            }}
+          >
+            Sign up
+          </Button>
+          {session?.user?.email && (
+            <Button
+              variant={"ghost"}
+              onClick={() => {
+                signOut();
+              }}
+            >
+              Logout
+            </Button>
+          )}
 
           <img
             src="https://img.icons8.com/?size=512&id=26031&format=png"

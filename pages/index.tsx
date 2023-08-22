@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar";
 import { useIsIntersecting } from "@/lib/hooks";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useSession } from "next-auth/react";
 import {
   Card,
   CardContent,
@@ -18,6 +19,7 @@ import { trpc } from "@/utils/trpc";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { data: session } = useSession();
   const { isSuccess, data, error, isLoading, mutate, ...otherMutationProps } =
     trpc.viewer.leads.addNewsLetterSubscriber.useMutation();
 
@@ -38,7 +40,6 @@ export default function Home() {
   const isStep3Visible = useIsIntersecting(step3Ref);
   const isStep4Visible = useIsIntersecting(step4Ref);
   const isNewsLetterVisible = useIsIntersecting(newsLetterRef);
-
   const [move, setMove] = useState<string>("left");
   const [secondStepMove, setSecondStepMove] = useState<string>("right");
   const [thirdStepMove, setThirdStepMove] = useState<string>("left");
@@ -326,7 +327,7 @@ export default function Home() {
                 onClick={addNewLead}
                 loading={isLoading}
                 variant={"outline"}
-                className="dark:bg-white bg-black  dark:text-black text-white  "
+                className="dark:bg-white hover:bg-black bg-black  dark:text-black text-white  "
               >
                 Subscribe
               </Button>

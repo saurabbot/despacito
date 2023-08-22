@@ -28,11 +28,19 @@ export const authRouter = router({
         }
         const hashedPassword = await bcrypt.hash(opts.input.password, 10);
         const verificationToken = crypto.randomBytes(20).toString("hex");
+        const expirationDate = new Date();
+        expirationDate.setHours(expirationDate.getHours() + 20);
         const newUser = await prisma.user.create({
           data: {
             ...opts.input,
-            verification_token: verificationToken,
             password: hashedPassword,
+          },
+        });
+        await prisma.verificationToken.create({
+          data: {
+            identifier: newUser.id,
+            token: verificationToken,
+            expires: expirationDate,
           },
         });
         await transporter.sendMail({
