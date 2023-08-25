@@ -8,6 +8,7 @@ import { useForm, FormProvider, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 type Props = {};
 const loginSchema = z.object({
   email: z.string().email(),
@@ -118,9 +119,7 @@ const login = (props: Props) => {
                   name="email"
                   className="animate-fade-in-up"
                 />
-                <span className=" font-normal text-sm m-1 ">
-                  Reset Password
-                </span>
+                <Link href={"/forgot_password"}>Forgot?</Link>
                 <Input
                   {...register("password")}
                   placeholder="Enter Password"

@@ -64,3 +64,11 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model ResetPasswordRequest{
+  id String @id @default(cuid())
+  email String
+  expiry DateTime
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}

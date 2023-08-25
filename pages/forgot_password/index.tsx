@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 type Props = {};
 
-const forgot_password = (props: Props) => {
+const index = (props: Props) => {
   const { toast } = useToast();
   const [email, setEmail] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -15,7 +15,7 @@ const forgot_password = (props: Props) => {
     const isLegit = z.string().email().safeParse(email);
     if (!isLegit.success) {
       toast({
-        variant: 'destructive',
+        variant: "destructive",
         title: "Enter Valid Email",
         description: "There was a problem with your request.",
       });
@@ -77,4 +77,4 @@ const forgot_password = (props: Props) => {
   );
 };
 
-export default forgot_password;
+export default index;
