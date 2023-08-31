@@ -18,7 +18,7 @@ const createResetLink = async (email: string | null): Promise<string> => {
     if (!createPasswordResetReq) {
       throw new Error("Failed to create password reset request.");
     }
-    const resetLink = `${process.env.NEXT_PUBLIC_WEBAPP_URL}/forgot_password/${createPasswordResetReq.id}`;
+    const resetLink = `${process.env.NEXT_PUBLIC_WEBAPP_URL}/forgot_password/${createPasswordResetReq.id}?email=${email}`;
     return resetLink;
   } catch (error) {
     console.error("Error creating reset link:", error);

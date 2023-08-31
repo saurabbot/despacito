@@ -54,6 +54,41 @@ export const authRouter = router({
         console.error(err);
       }
     }),
+  resetPassword: procedure
+    .input(
+      z.object({
+        password1: z.string().min(9),
+        password2: z.string().min(9),
+        email: z.string().email(),
+      })
+    )
+    .mutation(async (opts) => {
+      try {
+        if (opts.input.password1 !== opts.input.password2) {
+          throw new Error("Password doesent match, please try again");
+        }
+        const user = await prisma.user.findFirstOrThrow({
+          where: {
+            email: opts.input.email,
+          },
+        });
+        if (!user) {
+          throw new Error("User wasnt found");
+        }
+        const hashedPassword = await bcrypt.hash(opts.input.password1, 10);
+        const updatedUser = await prisma.user.update({
+          where: {
+            email: opts.input.email,
+          },
+          data: {
+            password: hashedPassword,
+          },
+        });
+        return updatedUser;
+      } catch (reason) {
+        console.error(reason);
+      }
+    }),
 });
 
 export type AppRouter = typeof authRouter;
