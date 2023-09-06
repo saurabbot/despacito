@@ -2,6 +2,8 @@ import React from "react";
 import { Input } from "../ui/input";
 import { Label } from "@radix-ui/react-label";
 import TechNexP from "./TechNexP";
+import FileUploader from "../FileUploader";
+import OrganisationTracker from "./OrganisationTracker";
 type Props = {};
 const InputWrapper = (props: JSX.IntrinsicElements["div"]) => (
   <div className="m-5">{props.children}</div>
@@ -20,11 +22,13 @@ const EasyForm = (props: Props) => {
         <Input name="name" placeholder="Enter email" />
       </InputWrapper>
       <InputWrapper>
-        <Label>Upload your resume</Label>
-        <Input type="file" placeholder="Choose a file" className="bg-slate-500 focus:border focus-visible:bg-slate-400 focus:border-red-50 text-white rounded p-1 text-center m-4" />
+        <FileUploader />
       </InputWrapper>
       <InputWrapper>
-      <TechNexP />
+        <TechNexP />
+      </InputWrapper>
+      <InputWrapper>
+        <OrganisationTracker />
       </InputWrapper>
     </div>
   );

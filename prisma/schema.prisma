@@ -46,11 +46,11 @@ model Session {
 
 model User {
   id            String    @id @default(cuid())
-  username          String?
+  username      String?
   email         String?   @unique
   password      String?
-  is_candidate       Boolean @default(false)
-  is_employer        Boolean @default(false)
+  is_candidate  Boolean   @default(false)
+  is_employer   Boolean   @default(false)
   emailVerified DateTime?
   image         String?
   accounts      Account[]
@@ -65,10 +65,28 @@ model VerificationToken {
   @@unique([identifier, token])
 }
 
-model ResetPasswordRequest{
-  id String @id @default(cuid())
-  email String
-  expiry DateTime
+model ResetPasswordRequest {
+  id         String   @id @default(cuid())
+  email      String
+  expiry     DateTime
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+model Candidate {
+  id                         String   @id @default(cuid())
+  email                      String
+  full_name                  String
+  skills                     String[]
+  current_organisation       String
+  age                        Int
+  resume_url                 String
+  skill_rating               Json
+  previous_organisation_data Json
+  total_years_experience     Int
+}
+
+model Skill {
+  id   Int    @id @default(autoincrement())
+  name String
 }
