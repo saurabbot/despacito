@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/Navbar";
-import { useIsIntersecting } from "@/lib/hooks";
 import { Input } from "@/components/ui/input";
+import { useIsIntersecting } from "@/lib/hooks";
+
 import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import {

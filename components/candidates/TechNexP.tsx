@@ -1,11 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { JsonObject } from "@prisma/client/runtime/library";
+import { type } from "os";
+import { trpc } from "@/utils/trpc";
+import { useDebounce } from "@/lib/hooks";
 
 type Props = {};
+type TSkill = {
+  id: number;
+  name: string;
+};
 const Skill = (props: { name: string }) => (
-  <span className="bg-black p-2 text-white font-semibold rounded-md">
-    React
+  <span className="bg-black p-2 m-1 text-white font-semibold rounded-md">
+    {props.name}
     <span
       className=" text-white m-2 p-1  cursor-pointer
            rounded-[50%]"
@@ -15,8 +23,16 @@ const Skill = (props: { name: string }) => (
   </span>
 );
 const TechNexP = (props: Props) => {
-  const [skills, setSkills] = useState([{ name: "React" }]);
-  const [newSkill, setNewSkill] = useState();
+  const [skills, setSkills] = useState<TSkill[]>([{ id: 1, name: "React" }]);
+  const [newSkill, setNewSkill] = useState<string>("");
+  const [debounceValue, setDebounceValue] = useDebounce(newSkill, 500);
+  const { isLoading, data, error, mutate } =
+    trpc.viewer.candidateForm.getSkills.useMutation();
+  useEffect(() => {
+    mutate({
+      queryString: newSkill,
+    });
+  }, [debounceValue]);
   return (
     <div className="p-3 border-[1px] border-slate-300 rounded-lg ">
       <div className="p-3 border border-black rounded-sm">
@@ -25,8 +41,28 @@ const TechNexP = (props: Props) => {
         ))}
       </div>
       <div className="m-2 p-1 flex justify-between">
-        <Input placeholder="search skill" />
-        <Button className="mx-4 cursor-pointer">Add</Button>
+        <div className="flex flex-col w-full">
+          <Input
+            placeholder="search skill"
+            value={newSkill}
+            onChange={async (e) => {
+              setNewSkill(e.target.value);
+            }}
+          />
+          <div className=" absolute w-1/4 mt-10 bg-slate-300 rounded-lg flex flex-col">
+            {data?.map((skill: TSkill) => (
+              <div
+                onClick={() => {
+                  setSkills((prevSkills) => [...prevSkills, skill]);
+                }}
+                key={skill.id}
+                className="m-1 text-black hover:bg-slate-100 duration-300 rounded p-1"
+              >
+                {skill.name}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

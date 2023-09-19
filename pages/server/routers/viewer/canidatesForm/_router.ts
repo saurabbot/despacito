@@ -1,7 +1,7 @@
 import { string, z } from "zod";
 import prisma from "@/prisma/prisma";
 import { procedure, router } from "@/pages/server/trpc";
-
+import { TRPCError } from "@trpc/server";
 export const candiateFormRouter = router({
   addNewCandidate: procedure
     .input(
@@ -38,13 +38,35 @@ export const candiateFormRouter = router({
         throw new Error("Internal Server Error");
       }
     }),
-  getSkills: procedure.query(async () => {
-    try {
-      const allSkills = await prisma.skill.findMany();
-      return allSkills;
-    } catch (err) {
-      throw new Error("Internal Server Error");
-    }
-  }),
+  getSkills: procedure
+    .input(
+      z.object({
+        queryString: z.string(),
+      })
+    )
+    .mutation(async (opts) => {
+      try {
+        if (opts.input.queryString === "") {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: "An unexpected error occurred, please try again later.",
+          });
+        }
+        const matching_skills = await prisma.skill.findMany({
+          where: {
+            name: {
+              contains: opts.input.queryString.toLowerCase()
+            },
+          },
+        });
+        if (!matching_skills) {
+          return "No skills were found";
+        }
+        return matching_skills;
+      } catch (err) {
+        throw new Error("Internal server error");
+      }
+    }),
 });
+
 export type AppRouter = typeof candiateFormRouter;

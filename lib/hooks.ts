@@ -1,9 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { useEffect, useState, RefObject } from "react";
+import { useEffect, useState, useRef, RefObject } from "react";
 
-export const useIsIntersecting = <T extends Element>(
-  ref: RefObject<T>
-): boolean => {
+export const useIsIntersecting = <T extends Element>(ref: RefObject<T>): boolean => {
   const [isIntersecting, setIsIntersecting] = useState(false);
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -22,5 +20,16 @@ export const useIsIntersecting = <T extends Element>(
   }, [ref]);
   return isIntersecting;
 };
+export function useDebounce<T>(value: T, delay?: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
 
-export default { useIsIntersecting };
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedValue(value), delay || 2000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+}
