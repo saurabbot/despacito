@@ -11,16 +11,26 @@ const InputWrapper = (props: JSX.IntrinsicElements["div"]) => (
 const EasyForm = (props: Props) => {
   return (
     <div>
-      <InputWrapper>
-        <Label htmlFor="full_name" className="m-1">
-          Full Name
-        </Label>
-        <Input name="name" placeholder="Enter name" id="full_name" />
-      </InputWrapper>
-      <InputWrapper>
-        <Label className="m-1">Email Address</Label>
-        <Input name="name" placeholder="Enter email" />
-      </InputWrapper>
+      <div className=" border border-black rounded-md">
+        <InputWrapper>
+          <Label htmlFor="full_name" className="m-1">
+            Full Name
+          </Label>
+          <Input name="name" placeholder="Enter name" id="full_name" />
+        </InputWrapper>
+        <InputWrapper>
+          <Label className="m-1">Email Address</Label>
+          <Input name="name" placeholder="Enter email" />
+        </InputWrapper>
+        <InputWrapper>
+          <Label className="m-1">Phone Number</Label>
+          <Input name="name" placeholder="Enter phone" />
+          <span className=" text-xs p-3">
+            We wont be bugging you with phone calls, trust us.
+          </span>
+        </InputWrapper>
+      </div>
+
       <InputWrapper>
         <FileUploader />
       </InputWrapper>

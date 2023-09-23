@@ -54,6 +54,7 @@ const TechNexP = (props: Props) => {
               <div
                 onClick={() => {
                   setSkills((prevSkills) => [...prevSkills, skill]);
+                  setNewSkill('')
                 }}
                 key={skill.id}
                 className="m-1 text-black hover:bg-slate-100 duration-300 rounded p-1"
