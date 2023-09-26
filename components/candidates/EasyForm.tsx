@@ -11,7 +11,7 @@ const InputWrapper = (props: JSX.IntrinsicElements["div"]) => (
 const EasyForm = (props: Props) => {
   return (
     <div>
-      <div className=" border border-black rounded-md">
+      <div className="m-1 border border-black rounded-md">
         <InputWrapper>
           <Label htmlFor="full_name" className="m-1">
             Full Name
@@ -30,16 +30,19 @@ const EasyForm = (props: Props) => {
           </span>
         </InputWrapper>
       </div>
+      <div className="m-1 border border-black rounded-md">
+        <InputWrapper>
+          <FileUploader />
+        </InputWrapper>
+        <InputWrapper>
+          <TechNexP />
+        </InputWrapper>
+        <InputWrapper>
+          <OrganisationTracker />
+        </InputWrapper>
+      </div>
 
-      <InputWrapper>
-        <FileUploader />
-      </InputWrapper>
-      <InputWrapper>
-        <TechNexP />
-      </InputWrapper>
-      <InputWrapper>
-        <OrganisationTracker />
-      </InputWrapper>
+
     </div>
   );
 };

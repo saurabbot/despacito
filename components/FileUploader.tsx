@@ -5,7 +5,7 @@ type Props = {};
 
 const FileUploader = (props: Props) => {
   return (
-    <div className="p-1 text-center">
+    <div className="text-center">
       <Label>Upload your resume</Label>
       <Input
         type="file"

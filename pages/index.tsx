@@ -94,14 +94,14 @@ export default function Home() {
       </div>
       <div>Culture fit is our topmost priority</div>
       <video
-        class="elementor-video animate-fade-in-up"
+        className="elementor-video animate-fade-in-up"
         src="./ophelia_landing_fix.mp4"
-        autoplay=""
+        autoPlay={true}
         loop
-        controls=""
-        muted="muted"
-        playsinline=""
-        controlslist="nodownload"
+        controls={false}
+        muted={false}
+        playsInline={false}
+        controlsList="nodownload"
         height={600}
         width={900}
         style={{
