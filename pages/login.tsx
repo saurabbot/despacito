@@ -18,7 +18,7 @@ type loginValues = z.infer<typeof loginSchema>;
 const login = (props: Props) => {
   const { data: session } = useSession();
   useEffect(() => {
-    if (session?.user.id) {
+    if (session?.user) {
       router.push("/");
     }
   }, [session]);

@@ -1,41 +1,35 @@
-import nextConnect from "next-connect";
-import multer from "multer";
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
-import { createRequestPresigner } from "@aws-sdk/s3-request-presigner";
-
-const s3 = new S3Client({
+import type { NextApiRequest, NextApiResponse } from "next";
+import S3 from 'aws-sdk/clients/s3'
+import { randomUUID } from "crypto";
+type Data = {
+}
+const s3 = new S3({
+  apiVersion: '2006-03-01',
   region: process.env.AWS_REGION,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+    secretAccessKey: process.env.AWS_ACCESS_KEY_ID || '',
   },
-});
-const upload = multer();
+  signatureVersion: 'v4'
+})
 
-const handler = nextConnect()
-  .use(upload.single("file"))
-  .post(async (req, res) => {
-    const file = req.file;
-    const key = Date.now().toString() + "-" + file.originalname;
-
-    const putParams = {
-      Bucket: process.env.S3_BUCKET_NAME,
-      Key: key,
-      Body: file.buffer,
-      ContentType: file.mimetype,
-      ACL: "public-read",
-    };
-
-    try {
-      await s3.send(new PutObjectCommand(putParams));
-
-      const signedUrl = await createRequestPresigner(s3);
-      const url = signedUrl(putParams, { expiresIn: 60 * 60 * 1000 }); // 1 hour
-
-      res.status(200).json({ url });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: "Error uploading file to S3" });
-    }
-  });
-export default handler;
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
+  const ex = (req.query.fileName as string).split('/')[1]
+  const Key = `${randomUUID()}.${ex}`
+  const s3Params = {
+    Bucket: process.env.S3_BUCKET_NAME,
+    Key,
+    Expires: 60,
+    ContentType: `application/${ex}`
+  }
+  const uploadUrl = await s3.getSignedUrl('putObject', s3Params)
+  console.log(uploadUrl, 'uploadurl')
+  res.status(200).json({
+    result: true,
+    url: uploadUrl,
+    key: Key
+  })
+}

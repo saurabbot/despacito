@@ -14,9 +14,9 @@ const Navbar = (props: Props) => {
     <div className=" w-full p-4 dark:text-black">
       <div className="flex justify-between text-center items-center">
         <div className="w-1/3 flex justify-between text-center items-center">
-          <span className="font-bold  text-3xl animate-fade-in-up ">
+          <a className="font-bold  text-3xl animate-fade-in-up " href="/">
             Ophelia
-          </span>
+          </a>
           <Button
             variant={"ghost"}
             color="primary"

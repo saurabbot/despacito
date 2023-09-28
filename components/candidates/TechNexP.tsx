@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { JsonObject } from "@prisma/client/runtime/library";
-import { type } from "os";
 import { trpc } from "@/utils/trpc";
 import { useDebounce } from "@/lib/hooks";
 
@@ -11,8 +8,9 @@ type TSkill = {
   id: number;
   name: string;
 };
+
 const Skill = (props: { name: string }) => (
-  <span className="bg-black p-2 m-1 text-white font-semibold rounded-md">
+  <span className="bg-black animate-fade-in-up p-2 m-1 text-white font-semibold rounded-md">
     {props.name}
     <span
       className=" text-white m-2 p-1  cursor-pointer
@@ -23,7 +21,7 @@ const Skill = (props: { name: string }) => (
   </span>
 );
 const TechNexP = (props: Props) => {
-  const [skills, setSkills] = useState<TSkill[]>([{ id: 1, name: "React" }]);
+  const [skills, setSkills] = useState<TSkill[]>([]);
   const [newSkill, setNewSkill] = useState<string>("");
   const [debounceValue, setDebounceValue] = useDebounce(newSkill, 500);
   const { isLoading, data, error, mutate } =
@@ -57,7 +55,7 @@ const TechNexP = (props: Props) => {
                   setNewSkill('')
                 }}
                 key={skill.id}
-                className="m-1 text-black hover:bg-slate-100 duration-300 rounded p-1"
+                className="m-1 animate-fade-in-up text-black hover:bg-slate-100 duration-300 rounded p-1"
               >
                 {skill.name}
               </div>
