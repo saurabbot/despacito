@@ -60,11 +60,10 @@ const index = (props: Props) => {
           <Card>
             <CardHeader>
               <CardTitle className="font-bold text-2xl">
-                Fill the job form
+                Make sure your profile is complete
               </CardTitle>
               <CardDescription className="dark:text-slate-500 text-xs">
-                Take approximately not more than 5 minutes by easily filling up
-                the job form and put yourself on the global market
+                Completion of the profile is very important for us to find you
               </CardDescription>
             </CardHeader>
             <CardContent className="text-xl">
@@ -74,7 +73,25 @@ const index = (props: Props) => {
                 any of your data
               </p>
             </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="font-bold text-2xl">
+                Wait Patiently for the right job
+              </CardTitle>
+              <CardDescription className="dark:text-slate-500 text-xs">
+                We will find you the right job based on your skills
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-xl">
+              <p>
+                Good things take time. We will find you the right job based on
+                your skills and experienceP
+              </p>
+            </CardContent>
           </Card>{" "}
+        </div>
+        <div className=" grid grid-cols-3 gap-3 p-3">
           <Card>
             <CardHeader>
               <CardTitle className="font-bold text-2xl">
@@ -93,6 +110,39 @@ const index = (props: Props) => {
               </p>
             </CardContent>
           </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="font-bold text-2xl">
+                Make sure your profile is complete
+              </CardTitle>
+              <CardDescription className="dark:text-slate-500 text-xs">
+                Completion of the profile is very important for us to find you
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-xl">
+              <p>
+                The form details will be completly private and will be shared
+                only with companies interested in your profile. We do not sell
+                any of your data
+              </p>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle className="font-bold text-2xl">
+                Wait Patiently for the right job
+              </CardTitle>
+              <CardDescription className="dark:text-slate-500 text-xs">
+                We will find you the right job based on your skills
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-xl">
+              <p>
+                Good things take time. We will find you the right job based on
+                your skills and experienceP
+              </p>
+            </CardContent>
+          </Card>{" "}
         </div>
         <div className="flex justify-between">
           <span>We make sure you find the right job based on your skills</span>

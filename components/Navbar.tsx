@@ -24,7 +24,13 @@ const Navbar = (props: Props) => {
           >
             For Candidates
           </Button>
-          <Button variant={"ghost"}>For Employer</Button>
+          <Button
+            variant={"ghost"}
+            color="primary"
+            onClick={() => route.push("/employer")}
+          >
+            For Employer
+          </Button>
         </div>
         <div className="flex justify-around w-1/6 ">
           {!session?.user?.email && (
@@ -47,7 +53,6 @@ const Navbar = (props: Props) => {
                 Sign up
               </Button>
             </>
-
           )}
 
           {session?.user?.email && (
