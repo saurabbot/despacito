@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import { trpc } from "@/utils/trpc";
 import { useDebounce } from "@/lib/hooks";
+import { TSkill } from "@/utils/types";
 
-type Props = {};
-type TSkill = {
-  id: number;
-  name: string;
+type Props = {
+  onSkillsChange: (skills: TSkill[]) => void;
 };
 
 const Skill = (props: { name: string }) => (
@@ -31,6 +30,10 @@ const TechNexP = (props: Props) => {
       queryString: newSkill,
     });
   }, [debounceValue]);
+  useEffect(() => {
+    props.onSkillsChange(skills);
+  }, [skills]);
+  console.log(JSON.stringify(skills));
   return (
     <div className="p-3 border-[1px] border-slate-300 rounded-lg ">
       <div className="p-3 border border-black rounded-sm">
@@ -52,7 +55,7 @@ const TechNexP = (props: Props) => {
               <div
                 onClick={() => {
                   setSkills((prevSkills) => [...prevSkills, skill]);
-                  setNewSkill('')
+                  setNewSkill("");
                 }}
                 key={skill.id}
                 className="m-1 animate-fade-in-up text-black hover:bg-slate-100 duration-300 rounded p-1"

@@ -1,7 +1,6 @@
 import React from "react";
 import Navbar from "@/components/Navbar";
 import EasyForm from "@/components/candidates/EasyForm";
-import Carousel from "@/components/ui/carousel";
 type Props = {};
 
 const register = (props: Props) => {

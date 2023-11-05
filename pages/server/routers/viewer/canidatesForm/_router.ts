@@ -8,10 +8,21 @@ export const candiateFormRouter = router({
       z.object({
         email: z.string().email(),
         full_name: z.string(),
-        skills: z.array(z.string()),
-        current_organisation: z.string(),
-        age: z.number(),
+        phone: z.string(),
         resume_url: z.string(),
+        skills: z.array(
+          z.object({
+            id: z.number(),
+            name: z.string(),
+          })
+        ),
+        experience: z.array(
+          z.object({
+            name: z.string(),
+            years: z.number(),
+          })
+        ),
+        current_organization: z.string(),
       })
     )
     .mutation(async (opts) => {
@@ -19,14 +30,15 @@ export const candiateFormRouter = router({
         const newCandidate = await prisma.candidate.create({
           data: {
             resume_url: opts.input.resume_url,
+            email: opts.input.email,
             full_name: opts.input.full_name,
             skills: opts.input.skills,
-            current_organisation: opts.input.current_organisation,
-            age: opts.input.age,
-            email: opts.input.email,
-            skill_rating: {},
-            previous_organisation_data: {},
-            total_years_experience: 4,
+            current_organisation: opts.input.current_organization,
+            age: 0,
+            phone_number: opts.input.phone,
+            previous_organisation_data: opts.input.experience,
+            skill_rating: 0,
+            total_years_experience: 0,
           },
         });
         if (!newCandidate) {
@@ -48,14 +60,14 @@ export const candiateFormRouter = router({
       try {
         if (opts.input.queryString === "") {
           throw new TRPCError({
-            code: 'BAD_REQUEST',
+            code: "BAD_REQUEST",
             message: "An unexpected error occurred, please try again later.",
           });
         }
         const matching_skills = await prisma.skill.findMany({
           where: {
             name: {
-              contains: opts.input.queryString.toLowerCase()
+              contains: opts.input.queryString.toLowerCase(),
             },
           },
         });

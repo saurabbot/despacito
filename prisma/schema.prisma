@@ -77,7 +77,8 @@ model Candidate {
   id                         String   @id @default(cuid())
   email                      String
   full_name                  String
-  skills                     String[]
+  skills                     Json
+  phone_number               String
   current_organisation       String
   age                        Int
   resume_url                 String
