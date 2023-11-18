@@ -9,6 +9,7 @@ type Props = {};
 const Navbar = (props: Props) => {
   const { systemTheme, theme, setTheme } = useTheme();
   const { data: session } = useSession();
+  console.log(session, "userdata");
   const route = useRouter();
   return (
     <div className=" w-full p-4 dark:text-black">

@@ -105,10 +105,10 @@ export default function Home() {
         height={600}
         width={900}
         style={{
-          borderRadius: "10px",
+          borderRadius: "20px",
           margin: "10px",
         }}
-      ></video>
+      />
       <div>
         <h1 className="text-6xl text-slate-400 animate-fade-in-up font-semibold a p-3">
           We are partnered with some amazing clients

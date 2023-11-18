@@ -1,22 +1,17 @@
 import React, { FC } from "react";
-import PropTypes from "prop-types";
-
+import DashboardNavbar from "@/components/employer/DashboardNavbar";
+import Menubar from "@/components/employer/Menubar";
 interface Props {}
 
 const index: FC<Props> = (props: Props) => {
-  const {} = props;
-
   return (
-    <main>
-      <section>
-        <h1>Index</h1>
-      </section>
+    <main className="dark:bg-black p-4 dark:text-white bg-white">
+      <DashboardNavbar />
+      <div className="flex  h-screen items-center justify-between">
+        <Menubar />
+      </div>
     </main>
   );
-};
-
-index.propTypes = {
-  // Define prop types here
 };
 
 export default index;

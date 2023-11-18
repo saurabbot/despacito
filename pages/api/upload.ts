@@ -16,7 +16,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  // const ex = (req.query.fileName as string).split("/")[1];
   const ex = "pdf";
   console.log(ex, "ex");
   const Key = `${randomUUID()}.${ex}`;
