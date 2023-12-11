@@ -10,5 +10,6 @@ export default async function handler(
   // await db.insert(leads).values({
   //   email: "saurabhnamb112@gmail.com",
   // });
+  
   res.status(200).json(result);
 }
