@@ -5,7 +5,7 @@ interface Props {}
 
 const index: FC<Props> = (props: Props) => {
   return (
-    <main className="dark:bg-black p-4 dark:text-white bg-white">
+    <main className="dark:bg-white p-4 dark:text-black bg-black">
       <DashboardNavbar />
       <div className="flex  h-screen items-center justify-between">
         <Menubar />

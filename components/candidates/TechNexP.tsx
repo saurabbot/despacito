@@ -51,18 +51,19 @@ const TechNexP = (props: Props) => {
             }}
           />
           <div className=" absolute w-1/4 mt-10 bg-slate-300 rounded-lg flex flex-col">
-            {data?.map((skill: TSkill) => (
-              <div
-                onClick={() => {
-                  setSkills((prevSkills) => [...prevSkills, skill]);
-                  setNewSkill("");
-                }}
-                key={skill.id}
-                className="m-1 animate-fade-in-up text-black hover:bg-slate-100 duration-300 rounded p-1"
-              >
-                {skill.name}
-              </div>
-            ))}
+            {Array.isArray(data) &&
+              data.map((skill: { name: string; id: number }) => (
+                <div
+                  onClick={() => {
+                    setSkills((prevSkills) => [...prevSkills, skill]);
+                    setNewSkill("");
+                  }}
+                  key={skill.id}
+                  className="m-1 animate-fade-in-up text-black hover:bg-slate-100 duration-300 rounded p-1"
+                >
+                  {skill.name}
+                </div>
+              ))}
           </div>
         </div>
       </div>

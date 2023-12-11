@@ -10,17 +10,17 @@ const Menubar: FC<Props> = (props: Props) => {
   const ImageIcon: FC<ImageIconProps> = (props: ImageIconProps) => {
     return (
       <span
-        className=" cursor-pointer hover:-translate-y-2 duration-500"
+        className=" cursor-pointer hover:-translate-y-2  duration-500"
         onClick={() => {
           router.push(props.link);
         }}
       >
-        <img src={props.src} className="w-10 h-10 invert" />
+        <img src={props.src} className="w-10 h-10 " />
       </span>
     );
   };
   return (
-    <div className="flex h-1/2 p-3 rounded-full m-1 border-[0.5px] border-purple-300 flex-col justify-evenly">
+    <div className="flex h-1/2 p-3 rounded-full m-1 border-[0.5px]  flex-col justify-evenly">
       <ImageIcon
         src="https://img.icons8.com/?size=100&id=JtOasgwoFNyW&format=png"
         link="/employer"

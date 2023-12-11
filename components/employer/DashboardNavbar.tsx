@@ -27,7 +27,7 @@ const DashboardNavbar: FC<Props> = (props: Props) => {
       </div>
       <img
         src="https://img.icons8.com/?size=160&id=nJRLlq8KqcX5&format=png"
-        className="w-10  h-10 cursor-pointer invert"
+        className="w-10  h-10 cursor-pointer "
       />
     </div>
   );
